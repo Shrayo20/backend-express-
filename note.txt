@@ -1,0 +1,16 @@
+Table -> rows and columns
+in mongo db
+Table= collections
+rows= Documents
+
+Defined using schemas and models
+CRUD -> Create, Read, Update and Delete
+
+Step 1: Define a model which specify the table properties
+step 2:create 
+2.1 import thre modle/schemas
+2.2make the route 
+2.3make handler function a promise 
+2.4perfrom the opertion 
+2.5send respones 
+token 
