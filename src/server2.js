@@ -52,6 +52,53 @@ app.post('/read/user',async(req,res,next)=>{
             // res.status(200).json({
             //     "token": token
             // })
+            //login api
+app.post('/login', async (req, res, next) => {
+  try {
+    console.log("login api called")
+    const { email, password } = req.body
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: 'Email and password are required'
+      })
+    }
+
+    const user = await User.findOne({ email })
+
+    if (!user || user.password !== password) {
+      return res.status(401).json({
+        message: 'Invalid email or password'
+      })
+    }
+
+    //issue token by backend
+    const token = jwt.sign(
+      { userId: user._id.toString(), email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    )
+
+    //save the token in cookie in frontend
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 1000
+    })
+
+    return res.status(200).jason 
+    sucess :true 
+    message: 'login sucessfull',
+    token,
+    user:{
+        id:user._id
+        name:user.name
+        email:user.name
+        age:user.age
+    }
+})
+
         }
     }catch(error){
         res.status(500).json({
